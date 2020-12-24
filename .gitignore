@@ -5,5 +5,4 @@
 *.pyc
 *.swo
 *.swp
-docker-compose.yaml
 venv/

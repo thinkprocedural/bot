@@ -2,11 +2,13 @@ import os
 import discord
 from discord.ext import commands
 
-cogs = []
-token = os.getenv("TOKEN")
+cogs = ["cogs.error.error", "cogs.help.help"]
+
+DISCORD_TOKEN = os.getenv("TOKEN")
+COMMAND_PREFIX = os.getenv("PREFIX")
 
 client = commands.Bot(
-    command_prefix="!",
+    command_prefix=COMMAND_PREFIX,
     status=discord.Status.idle,
     activity=discord.Game(name="Initializing"),
 )
@@ -14,9 +16,12 @@ client = commands.Bot(
 
 @client.event
 async def on_ready():
+    print("=" * 50)
     print("{0.user}".format(client))
+
+    # set status
     await client.change_presence(
-        status=discord.Status.online, activity=discord.Game(name=f"Houdini")
+        status=discord.Status.online, activity=discord.Game(name=f"Houdini"),
     )
 
 
@@ -25,7 +30,7 @@ if __name__ == "__main__":
         try:
             client.load_extension(extension)
         except Exception as error:
-            print(f"{extension} could not be activated. [{error}]")
+            print(f'# Could not be loaded: "{extension}"')
 
 
-client.run(token)
+client.run(DISCORD_TOKEN)

@@ -1,11 +1,14 @@
 # /docker-compose.yml
 
-version: "3"
+version: "3.8.5"
 
 services:
     bot:
+        build:
+            context: .
+            dockerfile: dockerfile
+
         container_name: bot
-        image: bot:1.0
         restart: unless-stopped
         environment:
             TOKEN: "DISCORD_TOKEN"

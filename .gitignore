@@ -1,8 +1,18 @@
+# environment
 .env
 .envrc
+.venv
+ENV/
+venv/
+
+# ide
 .idea/
 .vscode/
+
+# python
+__pycache__/
+*.py[cod]
 *.pyc
 *.swo
 *.swp
-venv/
+*$py.class

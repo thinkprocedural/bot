@@ -1,0 +1,12 @@
+# /docker-compose.yml
+
+version: "3"
+
+services:
+    bot:
+        container_name: bot
+        image: bot:1.0
+        restart: unless-stopped
+        environment:
+            TOKEN: "DISCORD_TOKEN"
+            PREFIX: "!"

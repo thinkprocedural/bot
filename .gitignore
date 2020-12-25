@@ -9,6 +9,9 @@ venv/
 .idea/
 .vscode/
 
+.tmp
+tmp/
+
 # python
 __pycache__/
 *.py[cod]

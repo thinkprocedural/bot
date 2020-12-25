@@ -10,6 +10,10 @@ class Utils(commands.Cog):
 
     @commands.command(pass_context=True)
     async def invite(self, ctx):
+        """
+        Get the latest invite link
+        """
+
         target = ctx.author
         invites = await target.guild.invites()
         invite_link = invites[0]

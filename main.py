@@ -5,7 +5,7 @@ from discord.ext import commands
 cogs = [
     # cogs list
     "cogs.error.error",
-    "cogs.help.help",
+    "cogs.info.info",
     "cogs.init.init",
     "cogs.logs.logs",
     "cogs.utils.utils",

@@ -10,6 +10,9 @@ class Error(commands.Cog):
 
     @commands.Cog.listener()
     async def on_command_error(self, ctx, error):
+        """
+        Basic error handler
+        """
         # if command has local error handler, return
         if hasattr(ctx.command, "on_error"):
             return

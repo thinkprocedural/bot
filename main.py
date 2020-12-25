@@ -6,6 +6,8 @@ cogs = [
     # cogs list
     "cogs.error.error",
     "cogs.help.help",
+    "cogs.init.init",
+    "cogs.logs.logs",
     "cogs.utils.utils",
 ]
 
@@ -24,9 +26,9 @@ async def on_ready():
     print("=" * 50)
     print("{0.user}".format(client))
 
-    # set status
+    activity = discord.Game(name=f"Houdini")
     await client.change_presence(
-        status=discord.Status.online, activity=discord.Game(name=f"Houdini"),
+        status=discord.Status.online, activity=activity,
     )
 
 

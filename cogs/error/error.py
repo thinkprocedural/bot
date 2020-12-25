@@ -1,6 +1,8 @@
 import discord
 from discord.ext import commands
 
+from ..variables import *
+
 
 class Error(commands.Cog):
     def __init__(self, client):
@@ -20,9 +22,8 @@ class Error(commands.Cog):
             embed = discord.Embed(
                 title="{}".format("Something went wrong"),
                 description="",
-                color=discord.Color(0xFF0000),
+                color=color_errr,
             )
-
             embed.add_field(name="Error", value="Command not found", inline=True)
             await ctx.send(embed=embed)
             return

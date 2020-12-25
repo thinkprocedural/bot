@@ -2,7 +2,12 @@ import os
 import discord
 from discord.ext import commands
 
-cogs = ["cogs.error.error", "cogs.help.help"]
+cogs = [
+    # cogs list
+    "cogs.error.error",
+    "cogs.help.help",
+    "cogs.utils.utils",
+]
 
 DISCORD_TOKEN = os.getenv("TOKEN")
 COMMAND_PREFIX = os.getenv("PREFIX")

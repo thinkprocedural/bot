@@ -4,12 +4,10 @@ COPY requirements.txt /tmp/
 
 RUN pip install -r /tmp/requirements.txt
 
-RUN useradd --create-home appuser
+WORKDIR /app
+ADD /bot/. /app
+
+RUN useradd appuser && chown -R appuser /app
 USER appuser
-
-COPY / /home/appuser
-WORKDIR /home/appuser
-
-ENV PYTHONPATH "/home/appuser/"
 
 CMD ["python", "-u", "./main.py"]

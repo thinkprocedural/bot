@@ -19,3 +19,6 @@ __pycache__/
 *.swo
 *.swp
 *$py.class
+
+# docker
+docker-compose.yml

@@ -1,6 +1,9 @@
 import os
+import logging
+
 import discord
 from discord.ext import commands
+
 
 cogs = [
     # cogs list
@@ -11,11 +14,22 @@ cogs = [
     "cogs.utils.utils",
 ]
 
-DISCORD_TOKEN = os.getenv("TOKEN")
-COMMAND_PREFIX = os.getenv("PREFIX")
+TOKEN = os.getenv("TOKEN")
+PREFIX = os.getenv("PREFIX")
 
+LOGING_LEVEL = os.getenv("LOGING_LEVEL")
+if LOGING_LEVEL is not None:
+    LOGING_LEVEL = LOGING_LEVEL.upper()
+
+LOGING_LEVEL_OPTIONS = ["CRITICAL", "ERROR", "WARNING", "INFO", "DEBUG", "WARNING"]
+if LOGING_LEVEL in LOGING_LEVEL_OPTIONS:
+    print("Logging with:", LOGING_LEVEL)
+    logging.basicConfig(level=LOGING_LEVEL)
+
+
+# client initialize
 client = commands.Bot(
-    command_prefix=COMMAND_PREFIX,
+    command_prefix=PREFIX,
     status=discord.Status.idle,
     activity=discord.Game(name="Initializing"),
 )
@@ -40,4 +54,4 @@ if __name__ == "__main__":
             print(f'# Could not be loaded: "{extension}"')
 
 
-client.run(DISCORD_TOKEN)
+client.run(TOKEN)

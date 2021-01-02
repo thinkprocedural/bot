@@ -13,17 +13,17 @@ class Info(commands.Cog):
         """
         Get information about the bot
         """
-        embed = discord.Embed(
-            title="About",
-            description="Think Procedural - Houdini Discord community",
-            color=color_main,
-        )
+        embed = discord.Embed(title="About the Bot", description="", color=color_main,)
         embed.set_thumbnail(url=self.client.user.avatar_url)
         embed.add_field(
-            name="Source", value="https://git.io/thinkprocedural", inline=False,
+            name="{}".format(self.client.user), value=bot_description, inline=False,
+        )
+        embed.add_field(
+            name="Source", value=bot_source_code, inline=False,
         )
         embed.set_footer(text=self.client.user.id)
-        await ctx.send(embed=embed)
+        await ctx.send(embed=embed, delete_after=delete_message_delay)
+        await ctx.message.delete()
 
     @commands.command(pass_context=True)
     async def info_server(self, ctx):
@@ -31,19 +31,15 @@ class Info(commands.Cog):
         Get information about the server
         """
         embed = discord.Embed(
-            title="About",
-            description="Think Procedural - Houdini Discord community",
-            color=color_main,
+            title="About the Server", description="", color=color_main,
         )
         embed.set_thumbnail(url=ctx.guild.icon_url)
         embed.add_field(
-            name="Website", value="https://thinkprocedural.com", inline=False,
-        )
-        embed.add_field(
-            name="Twitter", value="https://twitter.com/thinkprocedural", inline=False,
+            name="{}".format(ctx.guild), value="{}".format(""), inline=False,
         )
         embed.set_footer(text=ctx.guild.id)
-        await ctx.send(embed=embed)
+        await ctx.send(embed=embed, delete_after=delete_message_delay)
+        await ctx.message.delete()
 
 
 def setup(client):

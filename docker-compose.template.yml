@@ -1,15 +1,22 @@
 # /docker-compose.yml
 
-version: "3.8.5"
+version: "3.8"
 
 services:
     bot:
         build:
             context: .
-            dockerfile: dockerfile
+            dockerfile: Dockerfile
 
         container_name: bot
         restart: unless-stopped
         environment:
+            # discord token
             TOKEN: "DISCORD_TOKEN"
+
+            # bot command prefix
             PREFIX: "!"
+
+            # console logging level
+            # "CRITICAL", "ERROR", "WARNING", "INFO", "DEBUG"
+            LOGING_LEVEL: "CRITICAL"

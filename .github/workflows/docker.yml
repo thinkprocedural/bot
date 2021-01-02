@@ -1,0 +1,32 @@
+name: Publish Docker image
+
+# https://github.com/actions/starter-workflows/blob/master/ci/docker-publish.yml
+# https://docs.github.com/en/free-pro-team@latest/actions/guides/publishing-docker-images
+
+# publish `$default-branch` as docker `latest` image
+on:
+  push:
+    branches:
+      - $default-branch
+
+env:
+  # set image name for published package
+  IMAGE_NAME: bot
+
+jobs:
+  push:
+    name: Push Docker image to GitHub Packages
+    runs-on: ubuntu-latest
+    steps:
+      # check out the repo
+      - name: Check out the repo
+        uses: actions/checkout@v2
+
+      # push to github packages
+      - name: Push to GitHub Packages
+        uses: docker/build-push-action@v1
+        with:
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+          registry: docker.pkg.github.com
+          repository: ${{ github.repository }}/$IMAGE_NAME

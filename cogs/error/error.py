@@ -2,6 +2,7 @@ import discord
 from discord.ext import commands
 
 from ..variables import *
+from ..handlers import *
 
 
 class Error(commands.Cog):
@@ -20,15 +21,19 @@ class Error(commands.Cog):
         # get the original exception
         error = getattr(error, "original", error)
 
+        command = ctx.command
+        if command == None:
+            command = "Command"
+
         # command not found
         if isinstance(error, commands.CommandNotFound):
             embed = discord.Embed(
-                title="{}".format("Something went wrong"),
-                description="",
+                title="{}".format("Command not found"),
+                description="{} is not a valid command".format(ctx.message.content),
                 color=color_errr,
             )
-            embed.add_field(name="Error", value="Command not found", inline=True)
-            await ctx.send(embed=embed)
+            await ctx.message.delete()
+            await ctx.send(embed=embed, delete_after=ERROR_MESSAGE_DELETE_AFTER)
             return
 
 

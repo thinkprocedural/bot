@@ -27,5 +27,6 @@ jobs:
         with:
           username: ${{ github.actor }}
           password: ${{ secrets.REGISTRY_TOKEN }}
-          registry: docker.pkg.github.com
+          registry: ghcr.io
           repository: ${{ github.repository }}/$IMAGE_NAME
+          push: true

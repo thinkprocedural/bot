@@ -6,8 +6,7 @@ name: Publish Docker image
 # publish `$default-branch` as docker `latest` image
 on:
   push:
-    branches:
-      - $default-branch
+    branches: master
 
 env:
   # set image name for published package

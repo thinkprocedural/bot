@@ -1,6 +1,9 @@
 import os
+import logging
+
 import discord
 from discord.ext import commands
+
 
 cogs = [
     # cogs list
@@ -11,11 +14,18 @@ cogs = [
     "cogs.utils.utils",
 ]
 
-DISCORD_TOKEN = os.getenv("TOKEN")
-COMMAND_PREFIX = os.getenv("PREFIX")
+TOKEN = os.getenv("TOKEN")
+PREFIX = os.getenv("PREFIX")
+DEBUG = bool(os.getenv("DEBUG", "False").lower() in ["true", "1"])
+
+if DEBUG:
+    print(DEBUG)
+    # CRITICAL, ERROR, WARNING, INFO, DEBUG, WARNING
+    logging.basicConfig(level=logging.DEBUG)
+
 
 client = commands.Bot(
-    command_prefix=COMMAND_PREFIX,
+    command_prefix=PREFIX,
     status=discord.Status.idle,
     activity=discord.Game(name="Initializing"),
 )
@@ -40,4 +50,4 @@ if __name__ == "__main__":
             print(f'# Could not be loaded: "{extension}"')
 
 
-client.run(DISCORD_TOKEN)
+client.run(TOKEN)

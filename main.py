@@ -16,14 +16,18 @@ cogs = [
 
 TOKEN = os.getenv("TOKEN")
 PREFIX = os.getenv("PREFIX")
-DEBUG = bool(os.getenv("DEBUG", "False").lower() in ["true", "1"])
 
-if DEBUG:
-    print(DEBUG)
-    # CRITICAL, ERROR, WARNING, INFO, DEBUG, WARNING
-    logging.basicConfig(level=logging.DEBUG)
+LOGING_LEVEL = os.getenv("LOGING_LEVEL")
+if LOGING_LEVEL is not None:
+    LOGING_LEVEL = LOGING_LEVEL.upper()
+
+LOGING_LEVEL_OPTIONS = ["CRITICAL", "ERROR", "WARNING", "INFO", "DEBUG", "WARNING"]
+if LOGING_LEVEL in LOGING_LEVEL_OPTIONS:
+    print("Logging with:", LOGING_LEVEL)
+    logging.basicConfig(level=LOGING_LEVEL)
 
 
+# client initialize
 client = commands.Bot(
     command_prefix=PREFIX,
     status=discord.Status.idle,

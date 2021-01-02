@@ -32,8 +32,8 @@ class Error(commands.Cog):
                 description="{} is not a valid command".format(ctx.message.content),
                 color=color_errr,
             )
+            await ctx.send(embed=embed, delete_after=delete_message_delay)
             await ctx.message.delete()
-            await ctx.send(embed=embed, delete_after=ERROR_MESSAGE_DELETE_AFTER)
             return
 
 

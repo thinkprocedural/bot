@@ -11,5 +11,12 @@ services:
         container_name: bot
         restart: unless-stopped
         environment:
+            # discord token
             TOKEN: "DISCORD_TOKEN"
+
+            # bot command prefix
             PREFIX: "!"
+
+            # console logging level
+            # "CRITICAL", "ERROR", "WARNING", "INFO", "DEBUG"
+            LOGING_LEVEL: "CRITICAL"

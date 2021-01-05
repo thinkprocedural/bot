@@ -23,5 +23,11 @@
 </p>
 
 ```bash
-docker pull thinkprocedural/bot
+docker run -d \
+    --name=bot \
+    -e TOKEN="DISORD_TOKEN" \
+    -e PREFIX="!" \
+    -e LOGING_LEVEL="CRITICAL" \
+    --restart unless-stopped \
+    thinkprocedural/bot
 ```

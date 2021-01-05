@@ -3,20 +3,20 @@
 version: "3.8"
 
 services:
-    bot:
-        build:
-            context: .
-            dockerfile: Dockerfile
+  bot:
+    build:
+      context: .
+      dockerfile: Dockerfile
 
-        container_name: bot
-        restart: unless-stopped
-        environment:
-            # discord token
-            TOKEN: "DISCORD_TOKEN"
+    container_name: bot
+    restart: unless-stopped
+    environment:
+      # discord token
+      TOKEN: "DISCORD_TOKEN"
 
-            # bot command prefix
-            PREFIX: "!"
+      # bot command prefix
+      PREFIX: "!"
 
-            # console logging level
-            # "CRITICAL", "ERROR", "WARNING", "INFO", "DEBUG"
-            LOGGING_LEVEL: "CRITICAL"
+      # console logging level
+      # "CRITICAL", "ERROR", "WARNING", "INFO", "DEBUG"
+      LOGGING_LEVEL: "CRITICAL"

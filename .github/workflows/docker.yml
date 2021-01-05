@@ -15,11 +15,15 @@ jobs:
           fetch-depth: '0'
       - 
         name: Bump version and push tags
+        id: semver
         uses: anothrNick/github-tag-action@1.26.0
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           WITH_V: true
           DRY_RUN: true
+      -
+        name: Show new semver tag
+        run: echo The new version is ${{ steps.semver.outputs.new_tag }}
       # -
       #   name: Set up QEMU
       #   uses: docker/setup-qemu-action@v1

@@ -1,6 +1,8 @@
 import discord
 from discord.ext import commands
 
+import re
+
 from ..variables import *
 from ..handlers import *
 
@@ -41,8 +43,9 @@ class Error(commands.Cog):
         # default error handler
         for error_name, error_description in errors_list.items():
             if isinstance(error, getattr(commands, error_name)):
+                error_title = re.sub(r"\B([A-Z])", r" \1", error_name)
                 embed = discord.Embed(
-                    title="{}".format(error_name),
+                    title="{}".format(error_title),
                     description="{}".format(error_description),
                     color=color_errr,
                 )

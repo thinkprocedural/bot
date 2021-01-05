@@ -24,6 +24,6 @@ jobs:
         name: Move tag
         uses: negz/create-tag@v1 
         with:
-          version: ${{GITHUB_REF##*/}}
+          version: ${{ ${GITHUB_REF##*/} }}
           message: ''
           token: ${{ secrets.GITHUB_TOKEN }}

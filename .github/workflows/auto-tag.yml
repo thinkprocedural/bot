@@ -13,7 +13,8 @@ jobs:
         uses: actions/checkout@v2
       - 
         name: Get branch name
-        run: echo running on branch ${GITHUB_REF##*/}
+        run: echo "##[set-output name=branch;]$(echo ${GITHUB_REF#refs/heads/})"
+        id: extract_branch      
       - 
         name: Bump version and push tag
         id: tag_version
@@ -24,6 +25,6 @@ jobs:
         name: Move tag
         uses: negz/create-tag@v1 
         with:
-          version: ${{ ${GITHUB_REF##*/} }}
+          version: ${{ steps.extract_branch.outputs.branch }}
           message: ''
           token: ${{ secrets.GITHUB_TOKEN }}

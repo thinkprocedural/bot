@@ -27,7 +27,7 @@ docker run -d \
     --name=bot \
     -e TOKEN="DISORD_TOKEN" \
     -e PREFIX="!" \
-    -e LOGING_LEVEL="CRITICAL" \
+    -e LOGGING_LEVEL="CRITICAL" \
     --restart unless-stopped \
     thinkprocedural/bot
 ```

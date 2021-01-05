@@ -19,4 +19,4 @@ services:
 
             # console logging level
             # "CRITICAL", "ERROR", "WARNING", "INFO", "DEBUG"
-            LOGING_LEVEL: "CRITICAL"
+            LOGGING_LEVEL: "CRITICAL"

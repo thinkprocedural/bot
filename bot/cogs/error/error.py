@@ -4,7 +4,6 @@ from discord.ext import commands
 import re
 
 from ..variables import *
-from ..handlers import *
 
 errors_list = {
     "BadArgument": "Bad command arguments provided",

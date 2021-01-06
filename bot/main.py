@@ -10,7 +10,6 @@ cogs = [
     "cogs.error.error",
     "cogs.info.info",
     "cogs.init.init",
-    "cogs.introductions.introductions",
     "cogs.logs.logs",
     "cogs.utils.utils",
 ]

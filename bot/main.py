@@ -42,7 +42,8 @@ async def on_ready():
 
     activity = discord.Game(name=f"Houdini")
     await client.change_presence(
-        status=discord.Status.online, activity=activity,
+        status=discord.Status.online,
+        activity=activity,
     )
 
 

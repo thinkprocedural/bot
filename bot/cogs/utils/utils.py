@@ -27,13 +27,35 @@ class Utils(commands.Cog):
 
     @commands.Cog.listener()
     async def on_message(self, message):
+        # Bot should (for now) never react to its own messages
+        if message.author.id == self.client.user.id:
+            return
+
         ctx = await self.client.get_context(message)
+        if isinstance(ctx.channel, discord.channel.DMChannel):
+            embed = discord.Embed(
+                title="{}".format("Hello there!"),
+                # TODO: messages like the following description could be extracted to some config file, making the code a lot cleaner to read.
+                description="{}".format(
+                    "Thank you for messaging me, the bot, but I do not have a lot of functionality to show you via DM right now."
+                    "\n\n"
+                    "Here's a small Q&A."
+                    "\n\n"
+                    "**Why can't I post on the server channels?**\n"
+                    "Users must use the `#introductions` channel first. Also see the `#read-me-first` channel."
+                    "\n\n"
+                    "**What am I allowed to post to the `#jobs` channel?**\n"
+                    "If you're offering a paid or unpaid job, or are looking for a job, then shoot a message there. Be sure to use the correct tag, i.e. `**[PAID]**`, `**[UNPAID]**`, or `**[FOR HIRE]**`"
+                    "\n\n"
+                    "**What if I have another question?**\n"
+                    "Always feel free to message one of the `@Moderator`s"
+                ),
+                color=color_main,
+            )
+            return await ctx.send(embed=embed)
 
         # give "Member" role after introduction
-        if (
-            message.channel.name == "introductions"
-            and message.author.id != self.client.user.id
-        ):
+        if message.channel.name == "introductions":
             user = message.author
             user_roles = user.roles
 
@@ -43,28 +65,25 @@ class Utils(commands.Cog):
 
         # check jobs message for validation
         JOBS_PREFIXES = ["**[PAID]**", "**[UNPAID]**", "**[FOR HIRE]**"]
-        if message.author.id != self.client.user.id:
-            if message.channel.name == "jobs":
-                if any(
-                    [message.content.startswith(prefix) for prefix in JOBS_PREFIXES]
-                ):
-                    embed = discord.Embed(
-                        title="{}".format("Done"),
-                        description="{}".format("Your job post was sent successfully."),
-                        color=color_done,
-                    )
-                    await ctx.send(embed=embed, delete_after=delete_message_delay)
-                else:
-                    embed = discord.Embed(
-                        title="{}".format("Error"),
-                        description="Your message doesn't seem to have the correct format, it will be deleted in 30 seconds.\nPlease try again using one of the following prefixes:\n{}".format(
-                            "\n".join([f"`{prefix}`" for prefix in JOBS_PREFIXES])
-                        ),
-                        color=color_errr,
-                    )
-                    await ctx.send(embed=embed, delete_after=delete_message_delay)
-                    await asyncio.sleep(30)
-                    await message.delete()
+        if message.channel.name == "jobs":
+            if any([message.content.startswith(prefix) for prefix in JOBS_PREFIXES]):
+                embed = discord.Embed(
+                    title="{}".format("Done"),
+                    description="{}".format("Your job post was sent successfully."),
+                    color=color_done,
+                )
+                await ctx.send(embed=embed, delete_after=delete_message_delay)
+            else:
+                embed = discord.Embed(
+                    title="{}".format("Error"),
+                    description="Your message doesn't seem to have the correct format, it will be deleted in 30 seconds.\nPlease try again using one of the following prefixes:\n{}".format(
+                        "\n".join([f"`{prefix}`" for prefix in JOBS_PREFIXES])
+                    ),
+                    color=color_errr,
+                )
+                await ctx.send(embed=embed, delete_after=delete_message_delay)
+                await asyncio.sleep(30)
+                await message.delete()
 
 
 def setup(client):

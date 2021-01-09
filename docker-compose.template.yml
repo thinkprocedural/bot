@@ -4,10 +4,7 @@ version: "3.8"
 
 services:
   bot:
-    build:
-      context: .
-      dockerfile: Dockerfile
-
+    image: thinkprocedural/bot:latest
     container_name: bot
     restart: unless-stopped
     environment:

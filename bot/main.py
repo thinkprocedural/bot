@@ -17,14 +17,14 @@ cogs = [
 TOKEN = os.getenv("TOKEN")
 PREFIX = os.getenv("PREFIX")
 
-LOGING_LEVEL = os.getenv("LOGING_LEVEL")
-if LOGING_LEVEL is not None:
-    LOGING_LEVEL = LOGING_LEVEL.upper()
+LOGGING_LEVEL = os.getenv("LOGGING_LEVEL")
+if LOGGING_LEVEL is not None:
+    LOGGING_LEVEL = LOGGING_LEVEL.upper()
 
-LOGING_LEVEL_OPTIONS = ["CRITICAL", "ERROR", "WARNING", "INFO", "DEBUG", "WARNING"]
-if LOGING_LEVEL in LOGING_LEVEL_OPTIONS:
-    print("Logging with:", LOGING_LEVEL)
-    logging.basicConfig(level=LOGING_LEVEL)
+LOGGING_LEVEL_OPTIONS = ["CRITICAL", "ERROR", "WARNING", "INFO", "DEBUG", "WARNING"]
+if LOGGING_LEVEL in LOGGING_LEVEL_OPTIONS:
+    print("Logging with:", LOGGING_LEVEL)
+    logging.basicConfig(level=LOGGING_LEVEL)
 
 
 # client initialize
@@ -42,7 +42,8 @@ async def on_ready():
 
     activity = discord.Game(name=f"Houdini")
     await client.change_presence(
-        status=discord.Status.online, activity=activity,
+        status=discord.Status.online,
+        activity=activity,
     )
 
 

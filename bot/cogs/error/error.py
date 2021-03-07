@@ -28,6 +28,9 @@ class Error(commands.Cog):
         """
         Basic error handler
         """
+        if isinstance(ctx.channel, discord.channel.DMChannel):
+            return
+
         # if command has local error handler, return
         if hasattr(ctx.command, "on_error"):
             return

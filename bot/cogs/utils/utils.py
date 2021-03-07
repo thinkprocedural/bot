@@ -15,6 +15,8 @@ class Utils(commands.Cog):
         """
         Get the latest invite link
         """
+        if isinstance(ctx.channel, discord.channel.DMChannel):
+            return
 
         target = ctx.author
         invites = await target.guild.invites()

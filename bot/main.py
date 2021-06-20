@@ -9,8 +9,6 @@ cogs = [
     # cogs list
     "cogs.error.error",
     "cogs.info.info",
-    "cogs.init.init",
-    "cogs.logs.logs",
     "cogs.utils.utils",
 ]
 

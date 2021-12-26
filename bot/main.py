@@ -1,4 +1,5 @@
-import os
+import os, pathlib
+import asyncio
 import logging
 
 import discord
@@ -9,6 +10,7 @@ cogs = [
     # cogs list
     "cogs.error.error",
     "cogs.info.info",
+    "cogs.spam.spam",
     "cogs.utils.utils",
 ]
 
@@ -23,6 +25,16 @@ LOGGING_LEVEL_OPTIONS = ["CRITICAL", "ERROR", "WARNING", "INFO", "DEBUG", "WARNI
 if LOGGING_LEVEL in LOGGING_LEVEL_OPTIONS:
     print("Logging with:", LOGGING_LEVEL)
     logging.basicConfig(level=LOGGING_LEVEL)
+
+
+spam_log_file_clear_interval = 5
+spam_log_file = str(
+    pathlib.Path(
+        os.path.join(
+            os.path.abspath(os.getcwd()), "bot", "cogs", "spam", "spam_log.txt"
+        )
+    ).resolve()
+)
 
 
 # client initialize
@@ -43,6 +55,12 @@ async def on_ready():
         status=discord.Status.online,
         activity=activity,
     )
+
+    # create spam_log file to track mass spam, clear file every x seconds
+    while True:
+        await asyncio.sleep(spam_log_file_clear_interval)
+        with open(spam_log_file, "r+") as spam_log:
+            spam_log.truncate(0)
 
 
 if __name__ == "__main__":

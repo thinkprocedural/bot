@@ -1,4 +1,5 @@
-import os, pathlib
+import os
+import pathlib
 import asyncio
 import logging
 
@@ -56,7 +57,6 @@ async def on_ready():
         activity=activity,
     )
 
-    # create spam_log file to track mass spam, clear file every x seconds
     while True:
         await asyncio.sleep(spam_log_file_clear_interval)
         with open(spam_log_file, "r+") as spam_log:

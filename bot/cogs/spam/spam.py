@@ -1,6 +1,8 @@
-import discord
-import os, pathlib, time, hashlib
+import os
+import pathlib
+import time
 
+import discord
 from discord.ext import commands
 
 from ..variables import *
@@ -51,7 +53,7 @@ class Spam(commands.Cog):
 
         if counter_channels > 2:
             embed = discord.Embed(
-                title="`{}`".format("[POTENTIAL SPAM]]"),
+                title="`{}`".format("[POTENTIAL SPAM]"),
                 description="`{}` has sent `{}` messages in `{}` channels, within 5 seconds".format(
                     message.author.name, counter_messages, counter_channels
                 ),

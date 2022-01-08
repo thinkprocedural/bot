@@ -7,7 +7,6 @@ from discord.ext import commands
 
 from ..variables import *
 
-
 spam_log_file = str(
     pathlib.Path(
         os.path.join(
@@ -32,41 +31,56 @@ class Spam(commands.Cog):
         _authorid = str(message.author.id)
         _channelid = str(message.channel.id)
 
-        _log = _timestamp + " " + _authorid + " " + _channelid
+        _log = _timestamp + "___" + _authorid + "___" + _channelid
 
         counter_messages = 0
         counter_channels = 0
         list_channels = []
+
         with open(spam_log_file, "r+") as file:
             file.writelines(f"{str(_log)}\n")
+
             for line in file.readlines():
-                log_split = line.split(" ")
+                log_split = line.split("___")
                 log_timestamp = log_split[0]
                 log_authorid = log_split[1]
                 log_channelid = log_split[2]
+
+                # total number of messages sent by the user, in the last X seconds
                 if log_authorid == str(message.author.id):
                     counter_messages += 1
-                    list_channels.append(log_channelid)
+                    list_channels.append(log_channelid)  # add channel id
+
+                # number of unique channels the user has sent messages in
                 counter_channels = len(set(list_channels))
 
         # print("{}, {}, {}".format(counter_messages, counter_channels, _log))
 
-        if counter_channels > 2:
+        reason = "[POTENTIAL SPAM]: `{}` has sent `{}` messages in `{}` channels, within 5 seconds".format(
+            message.author.name, counter_messages, counter_channels
+        )
+
+        if counter_channels >= 3:
+            # if the use has sent messages to more than X unique channels - in Y seconds
+            # potential spam, ban user
+            await message.author.ban(reason=reason, delete_message_days=7)
+            """
             embed = discord.Embed(
                 title="`{}`".format("[POTENTIAL SPAM]"),
-                description="`{}` has sent `{}` messages in `{}` channels, within 5 seconds".format(
-                    message.author.name, counter_messages, counter_channels
-                ),
+                description=reason,
                 color=color_errr,
             )
             await ctx.send(embed=embed)
+            """
 
-        # embed = discord.Embed(
-        #     title="`{}`".format(counter_messages),
-        #     description="`{}`\n`{}`\n`{}`".format(_timestamp, _authorid, _channelid),
-        #     color=color_errr,
-        # )
-        # await ctx.send(embed=embed)
+        """
+        embed = discord.Embed(
+            title="`{}`".format(counter_messages),
+            description="`{}`\n`{}`\n`{}`".format(_timestamp, _authorid, _channelid),
+            color=color_errr,
+        )
+        await ctx.send(embed=embed)
+        """
 
 
 def setup(client):

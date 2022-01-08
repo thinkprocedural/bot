@@ -28,7 +28,7 @@ if LOGGING_LEVEL in LOGGING_LEVEL_OPTIONS:
     logging.basicConfig(level=LOGGING_LEVEL)
 
 
-spam_log_file_clear_interval = 5
+spam_log_file_clear_interval = 3
 spam_log_file = str(
     pathlib.Path(
         os.path.join(

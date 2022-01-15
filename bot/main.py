@@ -28,16 +28,6 @@ if LOGGING_LEVEL in LOGGING_LEVEL_OPTIONS:
     logging.basicConfig(level=LOGGING_LEVEL)
 
 
-spam_log_file_clear_interval = 3
-spam_log_file = str(
-    pathlib.Path(
-        os.path.join(
-            os.path.abspath(os.getcwd()), "bot", "cogs", "spam", "spam_log.txt"
-        )
-    ).resolve()
-)
-
-
 # client initialize
 client = commands.Bot(
     command_prefix=PREFIX,
@@ -56,11 +46,6 @@ async def on_ready():
         status=discord.Status.online,
         activity=activity,
     )
-
-    while True:
-        await asyncio.sleep(spam_log_file_clear_interval)
-        with open(spam_log_file, "r+") as spam_log:
-            spam_log.truncate(0)
 
 
 if __name__ == "__main__":

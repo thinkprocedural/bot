@@ -1,24 +1,28 @@
 import os
 import pathlib
 import time
+import asyncio
 
-import discord
 from discord.ext import commands
 
 from ..variables import *
 
-spam_log_file = str(
-    pathlib.Path(
-        os.path.join(
-            os.path.abspath(os.getcwd()), "bot", "cogs", "spam", "spam_log.txt"
-        )
-    ).resolve()
-)
+spam_log_file_clear_interval = 2
+spam_log_file = pathlib.Path(os.getcwd()) / "bot" / "cogs" / "spam" / "spam_log.txt"
 
 
 class Spam(commands.Cog):
     def __init__(self, client):
         self.client = client
+
+    @commands.Cog.listener()
+    async def on_ready(self):
+        # keep resetting file contents to clear out logs
+        # so that the spam log is wowrking with "last X seconds"
+        while True:
+            await asyncio.sleep(spam_log_file_clear_interval)
+            with open(spam_log_file, "w") as spam_log:
+                spam_log.truncate(0)
 
     @commands.Cog.listener()
     async def on_message(self, message):

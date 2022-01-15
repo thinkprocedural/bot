@@ -33,7 +33,7 @@ class Spam(commands.Cog):
         _timestamp = str(int(time.time()))
         _authorid = str(message.author.id)
         _channelid = str(message.channel.id)
-        _log = _timestamp + "___" + _authorid + "___" + _channelid
+        _log = _timestamp + "," + _authorid + "," + _channelid
 
         counter_messages = 0
         counter_channels = 0
@@ -43,7 +43,7 @@ class Spam(commands.Cog):
             file.writelines(f"{str(_log)}\n")
 
             for line in file.readlines():
-                log_split = line.split("___")
+                log_split = line.split(",")
                 log_authorid = log_split[1]
                 log_channelid = log_split[2]
 

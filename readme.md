@@ -1,4 +1,6 @@
-[![Think Procedural Cover](https://raw.githubusercontent.com/thinkprocedural/web/master/assets/cover.svg)](https://discord.gg/b8U5Hdy)
+<a href="https://discord.gg/b8U5Hdy" alt="Think Procedural Cover">
+<img src="./cover.svg">
+</a>
 
 <p align="center">
 <!-- discord -->

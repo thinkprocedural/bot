@@ -1,4 +1,6 @@
 import os
+import pathlib
+import asyncio
 import logging
 
 import discord
@@ -9,8 +11,7 @@ cogs = [
     # cogs list
     "cogs.error.error",
     "cogs.info.info",
-    "cogs.init.init",
-    "cogs.logs.logs",
+    "cogs.spam.spam",
     "cogs.utils.utils",
 ]
 

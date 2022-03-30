@@ -7,22 +7,29 @@ from discord.ext import commands
 
 from ..variables import *
 
-spam_log_file_clear_interval = 2
-spam_log_file = pathlib.Path(os.getcwd()) / "bot" / "cogs" / "spam" / "spam_log.txt"
+SPAM_LOG_FILE_CLEAR_INTERVAL = 2
+LOG_DIR = pathlib.Path(os.getcwd()) / "logs"
+SPAM_LOG_FILE = LOG_DIR / "spam_log.txt"
+
+if not LOG_DIR.is_dir():
+    LOG_DIR.mkdir(parents=True)
 
 
 class Spam(commands.Cog):
     def __init__(self, client):
         self.client = client
+        self.log_channel = None
 
     @commands.Cog.listener()
     async def on_ready(self):
+        self.log_channel = await self.client.fetch_channel(os.getenv("LOG_CHANNEL_ID"))
         # keep resetting file contents to clear out logs
         # so that we are "tracking the last X seconds"
         while True:
-            await asyncio.sleep(spam_log_file_clear_interval)
-            with open(spam_log_file, "w") as spam_log:
+            with open(SPAM_LOG_FILE, "w") as spam_log:
                 spam_log.truncate(0)
+
+            await asyncio.sleep(SPAM_LOG_FILE_CLEAR_INTERVAL)
 
     @commands.Cog.listener()
     async def on_message(self, message):
@@ -39,7 +46,7 @@ class Spam(commands.Cog):
         counter_channels = 0
         list_channels = []
 
-        with open(spam_log_file, "r+") as file:
+        with open(SPAM_LOG_FILE, "r+") as file:
             file.writelines(f"{str(_log)}\n")
 
             for line in file.readlines():
@@ -55,13 +62,14 @@ class Spam(commands.Cog):
                 # number of unique channels the user has sent messages in
                 counter_channels = len(set(list_channels))
 
-        reason = "[POTENTIAL SPAM]: `{}` has sent `{}` messages in `{}` channels, within 5 seconds".format(
-            message.author.name, counter_messages, counter_channels
-        )
+        reason = f"[POTENTIAL SPAM]: `{message.author.name}` has sent `{counter_messages}` messages in `{counter_channels}` channels, within {SPAM_LOG_FILE_CLEAR_INTERVAL} seconds"
 
         if counter_channels >= 3:
             # if the user has sent messages to more than X unique channels - in Y seconds, potential spam, ban user
-            await message.author.ban(reason=reason, delete_message_days=7)
+            await self.log_channel.send(reason)
+
+            # TODO: re-enable after more thorough testing
+            # await message.author.ban(reason=reason, delete_message_days=7)
 
 
 def setup(client):

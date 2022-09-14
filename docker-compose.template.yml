@@ -10,8 +10,7 @@ services:
     environment:
       # discord token
       TOKEN: "DISCORD_TOKEN"
-      LOG_CHANNEL_ID: "channel_id"
-      
+
       # bot command prefix
       PREFIX: "!"
 

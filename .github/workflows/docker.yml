@@ -4,6 +4,9 @@ on:
   push:
     branches: master
 
+env:
+  IMAGENAME: thinkprocedural
+
 jobs:
   main:
     runs-on: ubuntu-latest
@@ -37,7 +40,7 @@ jobs:
         uses: docker/build-push-action@v3
         with:
           push: true
-          tags: think-procedural/bot:latest,think-procedural/bot:${{ steps.semver.outputs.new_tag }}
+          tags: $IMAGENAME/bot:latest
       -
         name: Show new semver tag
         run: echo The new version is ${{ steps.semver.outputs.new_tag }}

@@ -40,7 +40,7 @@ jobs:
         uses: docker/build-push-action@v3
         with:
           push: true
-          tags: $IMAGENAME/bot:latest
+          tags: ${{ env.IMAGENAME }}/bot:latest
       -
         name: Show new semver tag
         run: echo The new version is ${{ steps.semver.outputs.new_tag }}

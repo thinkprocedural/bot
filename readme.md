@@ -33,3 +33,17 @@ docker run -d \
     --restart unless-stopped \
     thinkprocedural/bot
 ```
+
+```yaml
+version: '3'
+
+services:
+  bot: 
+    container_name: bot 
+    image: thinkprocedural/bot:latest
+    restart: unless-stopped 
+    environment: 
+      TOKEN: 'DISCORD_TOKEN' 
+      PREFIX: '!' 
+      LOGGING_LEVEL: 'INFO'
+```
